@@ -435,7 +435,7 @@ function clientInterface(baseUrl, hubs, reconnectTimeout, doNotStart) {
 		var cb = callCallbacks[messageId];
 		if (cb) cb(err, result);
 	}
-	
+
     client.start = function () {
         _client.getBinding();
     };
@@ -675,15 +675,16 @@ function clientInterface(baseUrl, hubs, reconnectTimeout, doNotStart) {
                 console.log("Reconnected!");
             }
         } else {
-            if (_client.serviceHandlers.connected) {
-                startCommunication(function (data) {
-
-                    _client.serviceHandlers.connected.apply(client, [connection]);
-                },
-                handlerErrors);
-            } else {
-                console.log("Connected!");
-            }
+            _client.serviceHandlers.connected.apply(client, [connection]);
+            // if (_client.serviceHandlers.connected) {
+            //     startCommunication(function (data) {
+            //
+            //         _client.serviceHandlers.connected.apply(client, [connection]);
+            //     },
+            //     handlerErrors);
+            // } else {
+            //     console.log("Connected!");
+            // }
         }
         connection.on('error', function (error) {
             _client.websocket.connection = undefined;
